@@ -29,7 +29,6 @@ namespace Server
             }
             this.stream.Shutdown(SocketShutdown.Both);
             this.stream.Close();
-
         }
 
         private int getIdOperation()
@@ -58,6 +57,7 @@ namespace Server
             byte[] msg = Encoding.UTF8.GetBytes(reply);
             this.stream.Send(msg);
         }
+        
         private void operationComand1()
         {
 
