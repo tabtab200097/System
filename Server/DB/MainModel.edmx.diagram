@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6b8e1dd3adba47ada8f18ff2ae52155e" Name="Diagram1">
+        <EntityTypeShape EntityType="MainModel.Answers" Width="1.5" PointX="8.125" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainModel.Questions" Width="1.5" PointX="6.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainModel.Results" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainModel.Roles" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainModel.StudentGroups" Width="1.5" PointX="11.625" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainModel.Students" Width="1.5" PointX="5.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainModel.Table" Width="1.5" PointX="10.125" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainModel.Tests" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainModel.Themes" Width="1.5" PointX="11.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainModel.Users" Width="1.5" PointX="3.25" PointY="0.5" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
