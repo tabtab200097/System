@@ -10,8 +10,6 @@ namespace Client
 {
     class TCP
     {
-
-
         string hostname;
         int port;
         TcpClient clientConnect;
@@ -23,23 +21,19 @@ namespace Client
             this.hostname = server;
             this.port = port;
         }
+
         private void startConect()
         {
              this.clientConnect = new TcpClient(this.hostname, this.port);
-            // Translate the passed message into ASCII and store it as a Byte array.
-           // Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
-
-            // Get a client stream for reading and writing.
-            //  Stream stream = client.GetStream();
-
              this.streamConnect = this.clientConnect.GetStream();
-
         }
+
         private void closeConnect()
         {
             this.streamConnect.Close();
             this.clientConnect.Close();  
         }
+        
         public int Autorisation(string login, string password)
         {
             int result = 0;
@@ -74,10 +68,9 @@ namespace Client
 
             return result;
         }
+      
         public void SendMessage(string message) 
         {
-
-
             if (message.Length == 0)
                 return;
             this.startConect();
