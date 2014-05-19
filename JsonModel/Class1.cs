@@ -12,4 +12,5 @@ namespace JsonModel
         public string login { get; set; }
         public string password { get; set; }
     }
+    // тест
 }
