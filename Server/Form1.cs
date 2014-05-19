@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 //using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Server
 {
@@ -17,11 +18,19 @@ namespace Server
             InitializeComponent();
         }
 
+        Socketclass_server y = new Socketclass_server();
+
         private void buttonStartServer_Click(object sender, EventArgs e)
         {
-            Socketclass_server y = new Socketclass_server("localhost", 11000);
-            y.AsServer();
-            y.ListenMessage();
+            y.Start1();
+
+        }
+
+        private void buttonStopServer_Click(object sender, EventArgs e)
+        {
+            y.Stop();
+
+
 
 
         }

@@ -18,58 +18,48 @@ namespace Server
         private Socket workSoket;
         private string localpoint = "localhost";
         private int port = 11000;
-        private int typeConection = -1;
+        private Thread th;
 
-        public Socketclass_server(string ipAdress,int conectPort)
+        public void Start1()
         {
-            // Устанавливаем для сокета локальную конечную точку
-            localpoint = ipAdress;
-            port = conectPort;
-
             ipHost = Dns.GetHostEntry(localpoint);
             IPAddress ipAddr = ipHost.AddressList[0];
             ipEndPoint = new IPEndPoint(ipAddr, port);
-
-            // Создаем сокет Tcp/Ip
             workSoket = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-        }
-        static void ClientThread(Object StateInfo)
-        {
-            new Client((Socket)StateInfo);
-        }
-        /// <summary>
-        /// Установка Soket Статуса сервер. Слушает входящие подключения и отвечает на них
-        /// </summary>
-        /// <param name="limitсListeners">Количество </param>
-        public void AsServer(int limitсListeners = 10)
-        {
-            if (typeConection != -1)
-            {
-                throw new InvalidProgramException("Нельзя присвоить сокету тип 'сервер', присвоен уже другой статус");
-            }
             workSoket.Bind(ipEndPoint);
-            workSoket.Listen(limitсListeners);
-            typeConection = 0;
+            workSoket.Listen(10);
 
-            ListenMessage();
-
-
+            th = new Thread(new ThreadStart(Start));
+            th.IsBackground = true;
+            th.Start();
         }
-        public void ListenMessage()
+
+        public void Start()
         {
             while (true)
             {
                 Console.WriteLine("Ожидаем соединение через порт {0}", ipEndPoint);
-                // Программа приостанавливается, ожидая входящее соединение
                 Socket handler = workSoket.Accept();
-                // Принимаем нового клиента
-                // Создаем поток
                 Thread Thread = new Thread(new ParameterizedThreadStart(ClientThread));
-                // И запускаем этот поток, передавая ему принятого клиента
                 Thread.Start(handler);
+            }
+
+        }
+
+        public void Stop()
+        {
+            if (th != null)
+            {
+                Console.WriteLine("Stoped");
+                th.Abort();
 
             }
+        }
+
+        static void ClientThread(Object StateInfo)
+        {
+            new Client((Socket)StateInfo);
         }
 
 
