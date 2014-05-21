@@ -60,7 +60,7 @@
             this.Controls.Add(this.buttonStopServer);
             this.Controls.Add(this.buttonStartServer);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Server";
             this.ResumeLayout(false);
 
         }

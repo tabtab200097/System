@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Client
 {
-    class TCP
+    public class TCP
     {
         private string hostname = "localhost";
         private int port = 30000;
