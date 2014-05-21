@@ -17,12 +17,14 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TCP y = new TCP("127.0.0.1", 11000);
+            TCP y = new TCP("192.168.10.7", 11000);
             string g = "SomeString";
-            Console.WriteLine("Полученый токен:{0}\n", y.Autorisation("admin", "admin"));
-            y.SendMessage(g);
+            //Console.WriteLine("Полученый токен:{0}\n", y.Autorisation("admin", "admin"));
+            //y.SendMessage(g);
+            //y.SendMessageFromSocket(30000);
 
-
+            byte[] gg = Encoding.UTF8.GetBytes(g);
+            y.SendMessage1(gg);
 
         }
     }

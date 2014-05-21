@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using System.Text;
+using System.Net;
 using System.Net.Sockets;
 using JsonModel;
 using Newtonsoft.Json;
@@ -10,36 +11,60 @@ namespace Client
 {
     class TCP
     {
-
-
-        string hostname;
-        int port;
+        string hostname = "127.0.0.1";
+        int port=11000;
         TcpClient clientConnect;
         NetworkStream streamConnect;
         int sizeBuffer = 4096;
 
+        public void SendMessage1(byte[] msg)
+        {
+            byte[] bytes = new byte[1024];
+
+            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPAddress ipAddr = ipHost.AddressList[0];
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 30000);
+
+            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+
+            sender.Connect(ipEndPoint);
+
+            //string message = "SomeMessage";
+
+            Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
+            //byte[] msg = Encoding.UTF8.GetBytes(message);
+
+            // Отправляем данные через сокет
+            int bytesSent = sender.Send(msg);
+
+            // Получаем ответ от сервера
+            int bytesRec = sender.Receive(bytes);
+
+            Console.WriteLine("\nОтвет от сервера: {0}\n\n", Encoding.UTF8.GetString(bytes, 0, bytesRec));
+
+            sender.Shutdown(SocketShutdown.Both);
+            sender.Close();
+        }
+        
+        
         public TCP(string server,int port)
         {
             this.hostname = server;
             this.port = port;
         }
+
         private void startConect()
         {
              this.clientConnect = new TcpClient(this.hostname, this.port);
-            // Translate the passed message into ASCII and store it as a Byte array.
-           // Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
-
-            // Get a client stream for reading and writing.
-            //  Stream stream = client.GetStream();
-
              this.streamConnect = this.clientConnect.GetStream();
-
         }
+
         private void closeConnect()
         {
             this.streamConnect.Close();
             this.clientConnect.Close();  
         }
+        
         public int Autorisation(string login, string password)
         {
             int result = 0;
@@ -74,10 +99,9 @@ namespace Client
 
             return result;
         }
+      
         public void SendMessage(string message) 
         {
-
-
             if (message.Length == 0)
                 return;
             this.startConect();
@@ -89,7 +113,7 @@ namespace Client
             
             streamConnect.Write(data, 0, data.Length);
             
-            streamConnect.Read(data, 0, data.Length);;
+            streamConnect.Read(data, 0, data.Length);
 
 
             data = System.Text.Encoding.UTF8.GetBytes(message.ToString());
