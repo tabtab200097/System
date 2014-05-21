@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonModel", "JsonModel\JsonModel.csproj", "{57AB3873-1728-4807-BFFD-3EBE3D0D067C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor\Editor.csproj", "{54E02B98-ACCC-4C09-B8D3-52B2B5EB4DCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{57AB3873-1728-4807-BFFD-3EBE3D0D067C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57AB3873-1728-4807-BFFD-3EBE3D0D067C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57AB3873-1728-4807-BFFD-3EBE3D0D067C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E02B98-ACCC-4C09-B8D3-52B2B5EB4DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E02B98-ACCC-4C09-B8D3-52B2B5EB4DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E02B98-ACCC-4C09-B8D3-52B2B5EB4DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E02B98-ACCC-4C09-B8D3-52B2B5EB4DCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

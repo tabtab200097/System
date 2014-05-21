@@ -1,4 +1,4 @@
-﻿namespace Client
+﻿namespace Editor
 {
     partial class Form1
     {
@@ -34,9 +34,6 @@
             this.buttonLogOut = new System.Windows.Forms.Button();
             this.labelLogin = new System.Windows.Forms.Label();
             this.labelToken = new System.Windows.Forms.Label();
-            this.buttonTheory = new System.Windows.Forms.Button();
-            this.buttonTests = new System.Windows.Forms.Button();
-            this.buttonJournal = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -101,44 +98,11 @@
             this.labelToken.Size = new System.Drawing.Size(0, 20);
             this.labelToken.TabIndex = 5;
             // 
-            // buttonTheory
-            // 
-            this.buttonTheory.Location = new System.Drawing.Point(27, 78);
-            this.buttonTheory.Name = "buttonTheory";
-            this.buttonTheory.Size = new System.Drawing.Size(99, 23);
-            this.buttonTheory.TabIndex = 6;
-            this.buttonTheory.Text = "Теория";
-            this.buttonTheory.UseVisualStyleBackColor = true;
-            this.buttonTheory.Click += new System.EventHandler(this.buttonTheory_Click);
-            // 
-            // buttonTests
-            // 
-            this.buttonTests.Location = new System.Drawing.Point(27, 107);
-            this.buttonTests.Name = "buttonTests";
-            this.buttonTests.Size = new System.Drawing.Size(99, 23);
-            this.buttonTests.TabIndex = 7;
-            this.buttonTests.Text = "Тестирование";
-            this.buttonTests.UseVisualStyleBackColor = true;
-            this.buttonTests.Click += new System.EventHandler(this.buttonTests_Click);
-            // 
-            // buttonJournal
-            // 
-            this.buttonJournal.Location = new System.Drawing.Point(27, 136);
-            this.buttonJournal.Name = "buttonJournal";
-            this.buttonJournal.Size = new System.Drawing.Size(99, 23);
-            this.buttonJournal.TabIndex = 8;
-            this.buttonJournal.Text = "Журнал";
-            this.buttonJournal.UseVisualStyleBackColor = true;
-            this.buttonJournal.Click += new System.EventHandler(this.buttonJournal_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(462, 258);
-            this.Controls.Add(this.buttonJournal);
-            this.Controls.Add(this.buttonTests);
-            this.Controls.Add(this.buttonTheory);
             this.Controls.Add(this.labelToken);
             this.Controls.Add(this.labelLogin);
             this.Controls.Add(this.buttonLogOut);
@@ -160,9 +124,6 @@
         private System.Windows.Forms.Button buttonLogOut;
         private System.Windows.Forms.Label labelLogin;
         private System.Windows.Forms.Label labelToken;
-        private System.Windows.Forms.Button buttonTheory;
-        private System.Windows.Forms.Button buttonTests;
-        private System.Windows.Forms.Button buttonJournal;
     }
 }
 

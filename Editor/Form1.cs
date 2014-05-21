@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using JsonModel;
 
-namespace Client
+namespace Editor
 {
     public partial class Form1 : Form
     {
@@ -78,7 +78,6 @@ namespace Client
             if(token<100000)
             {
                 MessageBox.Show("Пожалуйста, войдите в систему");
-                return;
             }
 
 
@@ -90,7 +89,6 @@ namespace Client
             if (token < 100000)
             {
                 MessageBox.Show("Пожалуйста, войдите в систему");
-                return;
             }
 
 

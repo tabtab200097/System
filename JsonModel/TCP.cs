@@ -7,7 +7,7 @@ using System.Net.Sockets;
 using JsonModel;
 using Newtonsoft.Json;
 
-namespace Client
+namespace JsonModel
 {
     public class TCP
     {
