@@ -78,8 +78,8 @@ namespace Server
 
             //int bytesRec = this.stream.Receive(this.bytes);
             string json = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-            Comand1 data = new Comand1();
-            data = JsonConvert.DeserializeObject<Comand1>(json);
+            AuthRequest data = new AuthRequest();
+            data = JsonConvert.DeserializeObject<AuthRequest>(json);
 
             int response = 0;
             Console.WriteLine("Попытка авторизироваться \nlogin: {0}\nPass: {1}", data.login, data.password);

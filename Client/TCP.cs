@@ -60,10 +60,10 @@ namespace Client
         public int Authorization(string login, string password)
         {
             int result = 0;
-            Comand1 zapros = new Comand1();
-            zapros.login = login;
-            zapros.password = password;
-            string json = JsonConvert.SerializeObject(zapros, Formatting.Indented);
+            AuthRequest request = new AuthRequest();
+            request.login = login;
+            request.password = password;
+            string json = JsonConvert.SerializeObject(request, Formatting.Indented);
             byte[] data = System.Text.Encoding.UTF8.GetBytes(json.ToString());
             byte[] response = SendMessage(1, data);
             result = BitConverter.ToInt32(response, 0);

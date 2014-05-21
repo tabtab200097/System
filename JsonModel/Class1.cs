@@ -7,7 +7,7 @@ namespace JsonModel
     /// <summary>
     /// Класс для авторизации
     /// </summary>
-    public class Comand1
+    public class AuthRequest
     {
         public string login { get; set; }
         public string password { get; set; }
