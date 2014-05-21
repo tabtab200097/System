@@ -12,15 +12,13 @@ namespace Client
     class TCP
     {
         string hostname = "127.0.0.1";
-        int port=11000;
+        int port = 11000;
         TcpClient clientConnect;
         NetworkStream streamConnect;
         int sizeBuffer = 4096;
 
-        public void SendMessage1(byte[] msg)
+        private byte[] SendMessage(int idOperation, byte[] msg)
         {
-            byte[] bytes = new byte[1024];
-
             IPHostEntry ipHost = Dns.GetHostEntry("localhost");
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 30000);
@@ -29,24 +27,33 @@ namespace Client
 
             sender.Connect(ipEndPoint);
 
-            //string message = "SomeMessage";
-
             Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
-            //byte[] msg = Encoding.UTF8.GetBytes(message);
+            /*TODO:
+             * послать(кодзапроса,длиназапроса)
+             * принять(кодзапроса,диназапроса)
+             * если отличаются-->return
+             * а потом передавать-принимать данные
+            */
 
-            // Отправляем данные через сокет
+            byte[] data = BitConverter.GetBytes(idOperation);
+            sender.Send(data);
+            int dataRec = sender.Receive(data);
+            Console.WriteLine("\nтут должен быть окай: {0}\n\n", Encoding.UTF8.GetString(data, 0, dataRec));
+
+            byte[] answer = new byte[4096];
             int bytesSent = sender.Send(msg);
+            int bytesRec = sender.Receive(answer);
 
-            // Получаем ответ от сервера
-            int bytesRec = sender.Receive(bytes);
 
-            Console.WriteLine("\nОтвет от сервера: {0}\n\n", Encoding.UTF8.GetString(bytes, 0, bytesRec));
+            //Console.WriteLine("\nОтвет от сервера: {0}\n\n", Encoding.UTF8.GetString(answer, 0, bytesRec));
 
-            sender.Shutdown(SocketShutdown.Both);
+            //sender.Shutdown(SocketShutdown.Both);
             sender.Close();
+
+            return answer;
         }
-        
-        
+
+        /*
         public TCP(string server,int port)
         {
             this.hostname = server;
@@ -64,80 +71,29 @@ namespace Client
             this.streamConnect.Close();
             this.clientConnect.Close();  
         }
-        
-        public int Autorisation(string login, string password)
+        */
+
+        public int Authorization(string login, string password)
         {
             int result = 0;
             Comand1 zapros = new Comand1();
             zapros.login = login;
             zapros.password = password;
             string json = JsonConvert.SerializeObject(zapros, Formatting.Indented);
-            this.startConect();
-
-
-            Byte[] data;
-            data = BitConverter.GetBytes(1);
-            streamConnect.Write(data, 0, data.Length);
-            streamConnect.Read(data, 0, data.Length); ;
-            data = System.Text.Encoding.UTF8.GetBytes(json.ToString());
-
-            streamConnect.Write(data, 0, data.Length);
-
-
-            // Receive the TcpServer.response.
-
-            // Buffer to store the response bytes.
-            data = new Byte[sizeBuffer];
-
-            // String to store the response ASCII representation.
-            String responseData = String.Empty;
-
-            // Read the first batch of the TcpServer response bytes.
-            Int32 bytes = streamConnect.Read(data, 0, data.Length);
-            result = BitConverter.ToInt32(data, 0);
-
-
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(json.ToString());
+            byte[] response = SendMessage(1, data);
+            result = BitConverter.ToInt32(response, 0);
             return result;
         }
-      
-        public void SendMessage(string message) 
+
+        public string SendSimpleText(string message)
         {
             if (message.Length == 0)
-                return;
-            this.startConect();
-
-            // Send the message to the connected TcpServer.
-
-            Byte[] data;
-            data = BitConverter.GetBytes(message.Length*10);
-            
-            streamConnect.Write(data, 0, data.Length);
-            
-            streamConnect.Read(data, 0, data.Length);
-
-
-            data = System.Text.Encoding.UTF8.GetBytes(message.ToString());
-                
-                
-            streamConnect.Write(data, 0, data.Length);
-            Console.WriteLine("Sent: {0}", message);
-
-            // Receive the TcpServer.response.
-
-            // Buffer to store the response bytes.
-            data = new Byte[sizeBuffer];
-
-            // String to store the response ASCII representation.
-            String responseData = String.Empty;
-
-            // Read the first batch of the TcpServer response bytes.
-            Int32 bytes = streamConnect.Read(data, 0, data.Length);
-            responseData = System.Text.Encoding.UTF8.GetString(data, 0, bytes);
-            Console.WriteLine("Received: {0}", responseData);
-
-            // Close everything.
-            //stream.Close(); 
-            this.closeConnect();
+                return "Ничего не прошло, выкинуло";
+            byte [] data = System.Text.Encoding.UTF8.GetBytes(message.ToString());
+            byte [] responsedata = SendMessage(0,data);
+            string response = System.Text.Encoding.UTF8.GetString(responsedata, 0, responsedata.Length);
+            return response;
         }
     }
 }

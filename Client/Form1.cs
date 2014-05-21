@@ -10,6 +10,10 @@ namespace Client
 {
     public partial class Form1 : Form
     {
+        private int token = 0;
+        private TCP y = new TCP();
+
+
         public Form1()
         {
             InitializeComponent();
@@ -17,14 +21,21 @@ namespace Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TCP y = new TCP("192.168.10.7", 11000);
-            string g = "SomeString";
-            //Console.WriteLine("Полученый токен:{0}\n", y.Autorisation("admin", "admin"));
-            //y.SendMessage(g);
-            //y.SendMessageFromSocket(30000);
 
-            byte[] gg = Encoding.UTF8.GetBytes(g);
-            y.SendMessage1(gg);
+            token = y.Authorization("admin", "admin");
+            if (token == 0)
+                Console.WriteLine("Авторизация не прошла\n");
+            else
+                Console.WriteLine("Полученый токен:{0}\n", token);
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string g = "SomeString";
+            g = y.SendSimpleText(g);
+            Console.WriteLine("Клиент: Ответ от сервера по тексту:{0}\n", g);
+
 
         }
     }
