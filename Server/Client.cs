@@ -68,8 +68,7 @@ namespace Server
             string data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
             Console.Write("\nПолученный текст: " + data + "\n\n");
 
-            string reply = "Спасибо за запрос в " + data.Length.ToString()
-                    + " символов";
+            string reply = data.Length.ToString() + "\n\n\0\0\n\n";
             byte[] msg = Encoding.UTF8.GetBytes(reply);
             return msg;
         }

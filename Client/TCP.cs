@@ -11,18 +11,16 @@ namespace Client
 {
     class TCP
     {
-        string hostname = "127.0.0.1";
-        int port = 11000;
-        TcpClient clientConnect;
-        NetworkStream streamConnect;
+        private string hostname = "localhost";
+        private int port = 30000;
         int sizeBuffer = 4096;
 
         private byte[] SendMessage(int idOperation, byte[] msg)
         {
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
+            IPHostEntry ipHost = Dns.GetHostEntry(hostname);
             IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 30000);
-
+            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, port);
+            
             Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
             sender.Connect(ipEndPoint);
@@ -53,25 +51,11 @@ namespace Client
             return answer;
         }
 
-        /*
         public TCP(string server,int port)
         {
             this.hostname = server;
             this.port = port;
         }
-
-        private void startConect()
-        {
-             this.clientConnect = new TcpClient(this.hostname, this.port);
-             this.streamConnect = this.clientConnect.GetStream();
-        }
-
-        private void closeConnect()
-        {
-            this.streamConnect.Close();
-            this.clientConnect.Close();  
-        }
-        */
 
         public int Authorization(string login, string password)
         {
@@ -90,7 +74,7 @@ namespace Client
         {
             if (message.Length == 0)
                 return "Ничего не прошло, выкинуло";
-            byte [] data = System.Text.Encoding.UTF8.GetBytes(message.ToString());
+            byte [] data = System.Text.Encoding.UTF8.GetBytes(message);
             byte [] responsedata = SendMessage(0,data);
             string response = System.Text.Encoding.UTF8.GetString(responsedata, 0, responsedata.Length);
             return response;
