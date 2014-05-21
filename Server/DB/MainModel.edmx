@@ -4,286 +4,299 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MainModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
-        <EntityType Name="Answers">
+    <Schema Namespace="MainModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityType Name="ACCOUNT">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="answer" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="QuestionID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LOGIN" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <EntityType Name="Questions">
+        <EntityType Name="ACCOUNT_ROLE">
+          <Key>
+            <PropertyRef Name="ACCOUNT_ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="int" Nullable="false" />
+          <Property Name="ROLE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ANSWER">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nchar" MaxLength="10" />
-          <Property Name="text" Type="nchar" MaxLength="100" Nullable="false" />
-          <Property Name="TestID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="QUESTION_ID" Type="int" Nullable="false" />
+          <Property Name="CONTENT" Type="text" Nullable="false" />
+          <Property Name="IS_RIGHT" Type="tinyint" Nullable="false" />
         </EntityType>
-        <EntityType Name="Results">
+        <EntityType Name="QUESTION">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="TestID" Type="int" Nullable="false" />
-          <Property Name="result" Type="nchar" MaxLength="10" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TITLE" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CONTENT" Type="text" Nullable="false" />
+          <Property Name="TEST_ID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Roles">
-          <Key>
-            <PropertyRef Name="SecurityLevel" />
-          </Key>
-          <Property Name="SecurityLevel" Type="int" Nullable="false" />
-          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
-        </EntityType>
-        <EntityType Name="StudentGroups">
+        <EntityType Name="RESULT">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="int" Nullable="false" />
+          <Property Name="TEST_ID" Type="int" Nullable="false" />
+          <Property Name="RESULT" Type="varchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="Students">
+        <EntityType Name="ROLE">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="login" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="GroupID" Type="int" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="varchar" MaxLength="240" Nullable="false" />
         </EntityType>
-        <EntityType Name="Table">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Tests">
+        <EntityType Name="STUDENT">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="ThemeID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="int" Nullable="false" />
+          <Property Name="GROUP_ID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Themes">
+        <EntityType Name="STUDENT_GROUP">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
-        <EntityType Name="Users">
+        <EntityType Name="TEST">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="login" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="password" Type="nchar" MaxLength="10" />
-          <Property Name="SecurityLevel" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="THEME" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Association Name="R1QUESTION">
+          <End Role="TEST" Type="Self.TEST" Multiplicity="1" />
+          <End Role="QUESTION" Type="Self.QUESTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEST">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTION">
+              <PropertyRef Name="TEST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MainModelStoreContainer">
-          <EntitySet Name="Answers" EntityType="Self.Answers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Questions" EntityType="Self.Questions" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StudentGroups" EntityType="Self.StudentGroups" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tests" EntityType="Self.Tests" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Themes" EntityType="Self.Themes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACCOUNT" EntityType="Self.ACCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACCOUNT_ROLE" EntityType="Self.ACCOUNT_ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ANSWER" EntityType="Self.ANSWER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUESTION" EntityType="Self.QUESTION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESULT" EntityType="Self.RESULT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STUDENT" EntityType="Self.STUDENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STUDENT_GROUP" EntityType="Self.STUDENT_GROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="R1QUESTION" Association="Self.R1QUESTION">
+            <End Role="TEST" EntitySet="TEST" />
+            <End Role="QUESTION" EntitySet="QUESTION" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MainModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
-        <EntityType Name="Answers">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="answer" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="QuestionID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Questions">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="text" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="TestID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Results">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="TestID" Type="Int32" Nullable="false" />
-          <Property Name="result" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Roles">
-          <Key>
-            <PropertyRef Name="SecurityLevel" />
-          </Key>
-          <Property Name="SecurityLevel" Type="Int32" Nullable="false" />
-          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="StudentGroups">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Students">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="GroupID" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Table">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Tests">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="ThemeID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Themes">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Users">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="login" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="SecurityLevel" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="MainEntitie">
-          <EntitySet Name="Answers" EntityType="Self.Answers" />
-          <EntitySet Name="Questions" EntityType="Self.Questions" />
-          <EntitySet Name="Results" EntityType="Self.Results" />
-          <EntitySet Name="Roles" EntityType="Self.Roles" />
-          <EntitySet Name="StudentGroups" EntityType="Self.StudentGroups" />
-          <EntitySet Name="Students" EntityType="Self.Students" />
-          <EntitySet Name="Table" EntityType="Self.Table" />
-          <EntitySet Name="Tests" EntityType="Self.Tests" />
-          <EntitySet Name="Themes" EntityType="Self.Themes" />
-          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="ACCOUNT" EntityType="MainModel.ACCOUNT" />
+          <EntitySet Name="ACCOUNT_ROLE" EntityType="MainModel.ACCOUNT_ROLE" />
+          <EntitySet Name="ANSWER" EntityType="MainModel.ANSWER" />
+          <EntitySet Name="QUESTION" EntityType="MainModel.QUESTION" />
+          <EntitySet Name="RESULT" EntityType="MainModel.RESULT" />
+          <EntitySet Name="ROLE" EntityType="MainModel.ROLE" />
+          <EntitySet Name="STUDENT" EntityType="MainModel.STUDENT" />
+          <EntitySet Name="STUDENT_GROUP" EntityType="MainModel.STUDENT_GROUP" />
+          <EntitySet Name="TEST" EntityType="MainModel.TEST" />
+          <AssociationSet Name="R1QUESTION" Association="MainModel.R1QUESTION">
+            <End Role="TEST" EntitySet="TEST" />
+            <End Role="QUESTION" EntitySet="QUESTION" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LOGIN" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ACCOUNT_ROLE">
+          <Key>
+            <PropertyRef Name="ACCOUNT_ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" />
+          <Property Name="ROLE_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ANSWER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QUESTION_ID" Type="Int32" Nullable="false" />
+          <Property Name="CONTENT" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IS_RIGHT" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QUESTION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TITLE" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CONTENT" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TEST" Relationship="MainModel.R1QUESTION" FromRole="QUESTION" ToRole="TEST" />
+        </EntityType>
+        <EntityType Name="RESULT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" />
+          <Property Name="TEST_ID" Type="Int32" Nullable="false" />
+          <Property Name="RESULT1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="240" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="Int32" Nullable="false" />
+          <Property Name="GROUP_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STUDENT_GROUP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TEST">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="THEME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="QUESTION" Relationship="MainModel.R1QUESTION" FromRole="TEST" ToRole="QUESTION" />
+        </EntityType>
+        <Association Name="R1QUESTION">
+          <End Type="MainModel.TEST" Role="TEST" Multiplicity="1" />
+          <End Type="MainModel.QUESTION" Role="QUESTION" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
         <EntityContainerMapping StorageEntityContainer="MainModelStoreContainer" CdmEntityContainer="MainEntitie">
-          <EntitySetMapping Name="Answers">
-            <EntityTypeMapping TypeName="MainModel.Answers">
-              <MappingFragment StoreEntitySet="Answers">
+          <EntitySetMapping Name="ACCOUNT">
+            <EntityTypeMapping TypeName="MainModel.ACCOUNT">
+              <MappingFragment StoreEntitySet="ACCOUNT">
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="answer" ColumnName="answer" />
-                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Questions">
-            <EntityTypeMapping TypeName="MainModel.Questions">
-              <MappingFragment StoreEntitySet="Questions">
+          <EntitySetMapping Name="ACCOUNT_ROLE">
+            <EntityTypeMapping TypeName="MainModel.ACCOUNT_ROLE">
+              <MappingFragment StoreEntitySet="ACCOUNT_ROLE">
+                <ScalarProperty Name="ROLE_ID" ColumnName="ROLE_ID" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="text" ColumnName="text" />
-                <ScalarProperty Name="TestID" ColumnName="TestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Results">
-            <EntityTypeMapping TypeName="MainModel.Results">
-              <MappingFragment StoreEntitySet="Results">
+          <EntitySetMapping Name="ANSWER">
+            <EntityTypeMapping TypeName="MainModel.ANSWER">
+              <MappingFragment StoreEntitySet="ANSWER">
+                <ScalarProperty Name="IS_RIGHT" ColumnName="IS_RIGHT" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="QUESTION_ID" ColumnName="QUESTION_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="TestID" ColumnName="TestID" />
-                <ScalarProperty Name="result" ColumnName="result" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="MainModel.Roles">
-              <MappingFragment StoreEntitySet="Roles">
-                <ScalarProperty Name="SecurityLevel" ColumnName="SecurityLevel" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StudentGroups">
-            <EntityTypeMapping TypeName="MainModel.StudentGroups">
-              <MappingFragment StoreEntitySet="StudentGroups">
+          <EntitySetMapping Name="QUESTION">
+            <EntityTypeMapping TypeName="MainModel.QUESTION">
+              <MappingFragment StoreEntitySet="QUESTION">
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="TITLE" ColumnName="TITLE" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Students">
-            <EntityTypeMapping TypeName="MainModel.Students">
-              <MappingFragment StoreEntitySet="Students">
+          <EntitySetMapping Name="RESULT">
+            <EntityTypeMapping TypeName="MainModel.RESULT">
+              <MappingFragment StoreEntitySet="RESULT">
+                <ScalarProperty Name="RESULT1" ColumnName="RESULT" />
+                <ScalarProperty Name="TEST_ID" ColumnName="TEST_ID" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="login" ColumnName="login" />
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Table">
-            <EntityTypeMapping TypeName="MainModel.Table">
-              <MappingFragment StoreEntitySet="Table">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tests">
-            <EntityTypeMapping TypeName="MainModel.Tests">
-              <MappingFragment StoreEntitySet="Tests">
+          <EntitySetMapping Name="ROLE">
+            <EntityTypeMapping TypeName="MainModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="ThemeID" ColumnName="ThemeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Themes">
-            <EntityTypeMapping TypeName="MainModel.Themes">
-              <MappingFragment StoreEntitySet="Themes">
+          <EntitySetMapping Name="STUDENT">
+            <EntityTypeMapping TypeName="MainModel.STUDENT">
+              <MappingFragment StoreEntitySet="STUDENT">
+                <ScalarProperty Name="GROUP_ID" ColumnName="GROUP_ID" />
+                <ScalarProperty Name="ACCOUNT_ID" ColumnName="ACCOUNT_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="MainModel.Users">
-              <MappingFragment StoreEntitySet="Users">
+          <EntitySetMapping Name="STUDENT_GROUP">
+            <EntityTypeMapping TypeName="MainModel.STUDENT_GROUP">
+              <MappingFragment StoreEntitySet="STUDENT_GROUP">
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="login" ColumnName="login" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="SecurityLevel" ColumnName="SecurityLevel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TEST">
+            <EntityTypeMapping TypeName="MainModel.TEST">
+              <MappingFragment StoreEntitySet="TEST">
+                <ScalarProperty Name="THEME" ColumnName="THEME" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="R1QUESTION" TypeName="MainModel.R1QUESTION" StoreEntitySet="QUESTION">
+            <EndProperty Name="QUESTION">
+              <ScalarProperty Name="ID" ColumnName="ID" />
+            </EndProperty>
+            <EndProperty Name="TEST">
+              <ScalarProperty Name="ID" ColumnName="TEST_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
