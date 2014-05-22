@@ -61,7 +61,7 @@
             this.textBoxLogin.Location = new System.Drawing.Point(106, 9);
             this.textBoxLogin.Name = "textBoxLogin";
             this.textBoxLogin.Size = new System.Drawing.Size(100, 20);
-            this.textBoxLogin.TabIndex = 2;
+            this.textBoxLogin.TabIndex = 0;
             // 
             // textBoxPass
             // 
@@ -100,6 +100,7 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Name = "FormAuth";
+            this.Shown += new System.EventHandler(this.FormAuth_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

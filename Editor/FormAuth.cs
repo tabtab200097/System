@@ -32,5 +32,10 @@ namespace Editor
         {
             Close();
         }
+
+        private void FormAuth_Shown(object sender, EventArgs e)
+        {
+            textBoxLogin.Focus();
+        }
     }
 }

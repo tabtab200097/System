@@ -13,8 +13,8 @@ namespace Client
     {
         public TCP serverconnect = new TCP("localhost", 30000);
 
-        public string login;
-        public string password;
+        public string login = "";
+        public string password = "";
         private int token;
 
         public Form1()

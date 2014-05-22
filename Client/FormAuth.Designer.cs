@@ -100,6 +100,7 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Name = "FormAuth";
+            this.Shown += new System.EventHandler(this.FormAuth_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
