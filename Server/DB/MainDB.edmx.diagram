@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8d9cfb919c9a4e1c8df3b1d43e68fa49" Name="Diagram1">
+        <EntityTypeShape EntityType="DBModel.Account" Width="1.5" PointX="7" PointY="2.375" IsExpanded="true" FillColor="128, 255, 128" />
+        <EntityTypeShape EntityType="DBModel.AccountRole" Width="1.875" PointX="10.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Answer" Width="1.5" PointX="1.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Question" Width="1.5" PointX="1.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Result" Width="1.5" PointX="3.875" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Role" Width="1.5" PointX="13.125" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Student" Width="1.5" PointX="7" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.StudentGroup" Width="2" PointX="10.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBModel.Test" Width="1.5" PointX="1.25" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="DBModel.R1ACCOUNT_ROLE" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.R1RESULT" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.R1STUDENT" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.R2ACCOUNT_ROLE" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.R1ANSWER" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.R1QUESTION" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.R2RESULT" ManuallyRouted="false" />
+        <AssociationConnector Association="DBModel.R2STUDENT" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,564 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LOGIN" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ACCOUNT_ROLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="int" Nullable="false" />
+          <Property Name="ROLE_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ANSWER">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="QUESTION_ID" Type="int" Nullable="false" />
+          <Property Name="CONTENT" Type="text" Nullable="false" />
+          <Property Name="IS_RIGHT" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QUESTION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="TITLE" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CONTENT" Type="text" Nullable="false" />
+          <Property Name="TEST_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RESULT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="int" Nullable="false" />
+          <Property Name="TEST_ID" Type="int" Nullable="false" />
+          <Property Name="RESULT" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="varchar" MaxLength="240" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STUDENT">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ACCOUNT_ID" Type="int" Nullable="false" />
+          <Property Name="STUDENT_GROUP_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="STUDENT_GROUP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TEST">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="THEME" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="R1ACCOUNT_ROLE">
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="1" />
+          <End Role="ACCOUNT_ROLE" Type="Self.ACCOUNT_ROLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ACCOUNT_ROLE">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R1ANSWER">
+          <End Role="QUESTION" Type="Self.QUESTION" Multiplicity="1" />
+          <End Role="ANSWER" Type="Self.ANSWER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTION">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANSWER">
+              <PropertyRef Name="QUESTION_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R1QUESTION">
+          <End Role="TEST" Type="Self.TEST" Multiplicity="1" />
+          <End Role="QUESTION" Type="Self.QUESTION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEST">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="QUESTION">
+              <PropertyRef Name="TEST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R1RESULT">
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="1" />
+          <End Role="RESULT" Type="Self.RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RESULT">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R1STUDENT">
+          <End Role="ACCOUNT" Type="Self.ACCOUNT" Multiplicity="1" />
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="ACCOUNT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R2ACCOUNT_ROLE">
+          <End Role="ROLE" Type="Self.ROLE" Multiplicity="1" />
+          <End Role="ACCOUNT_ROLE" Type="Self.ACCOUNT_ROLE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ACCOUNT_ROLE">
+              <PropertyRef Name="ROLE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R2RESULT">
+          <End Role="TEST" Type="Self.TEST" Multiplicity="1" />
+          <End Role="RESULT" Type="Self.RESULT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEST">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RESULT">
+              <PropertyRef Name="TEST_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R2STUDENT">
+          <End Role="STUDENT_GROUP" Type="Self.STUDENT_GROUP" Multiplicity="1" />
+          <End Role="STUDENT" Type="Self.STUDENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STUDENT_GROUP">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="STUDENT_GROUP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBModelStoreContainer">
+          <EntitySet Name="ACCOUNT" EntityType="Self.ACCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACCOUNT_ROLE" EntityType="Self.ACCOUNT_ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ANSWER" EntityType="Self.ANSWER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QUESTION" EntityType="Self.QUESTION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RESULT" EntityType="Self.RESULT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STUDENT" EntityType="Self.STUDENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STUDENT_GROUP" EntityType="Self.STUDENT_GROUP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEST" EntityType="Self.TEST" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="R1ACCOUNT_ROLE" Association="Self.R1ACCOUNT_ROLE">
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+            <End Role="ACCOUNT_ROLE" EntitySet="ACCOUNT_ROLE" />
+          </AssociationSet>
+          <AssociationSet Name="R1ANSWER" Association="Self.R1ANSWER">
+            <End Role="QUESTION" EntitySet="QUESTION" />
+            <End Role="ANSWER" EntitySet="ANSWER" />
+          </AssociationSet>
+          <AssociationSet Name="R1QUESTION" Association="Self.R1QUESTION">
+            <End Role="TEST" EntitySet="TEST" />
+            <End Role="QUESTION" EntitySet="QUESTION" />
+          </AssociationSet>
+          <AssociationSet Name="R1RESULT" Association="Self.R1RESULT">
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+            <End Role="RESULT" EntitySet="RESULT" />
+          </AssociationSet>
+          <AssociationSet Name="R1STUDENT" Association="Self.R1STUDENT">
+            <End Role="ACCOUNT" EntitySet="ACCOUNT" />
+            <End Role="STUDENT" EntitySet="STUDENT" />
+          </AssociationSet>
+          <AssociationSet Name="R2ACCOUNT_ROLE" Association="Self.R2ACCOUNT_ROLE">
+            <End Role="ROLE" EntitySet="ROLE" />
+            <End Role="ACCOUNT_ROLE" EntitySet="ACCOUNT_ROLE" />
+          </AssociationSet>
+          <AssociationSet Name="R2RESULT" Association="Self.R2RESULT">
+            <End Role="TEST" EntitySet="TEST" />
+            <End Role="RESULT" EntitySet="RESULT" />
+          </AssociationSet>
+          <AssociationSet Name="R2STUDENT" Association="Self.R2STUDENT">
+            <End Role="STUDENT_GROUP" EntitySet="STUDENT_GROUP" />
+            <End Role="STUDENT" EntitySet="STUDENT" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ACCOUNT_ROLE" Relationship="Self.R1ACCOUNT_ROLE" FromRole="ACCOUNT" ToRole="ACCOUNT_ROLE" />
+          <NavigationProperty Name="RESULT" Relationship="Self.R1RESULT" FromRole="ACCOUNT" ToRole="RESULT" />
+          <NavigationProperty Name="STUDENT" Relationship="Self.R1STUDENT" FromRole="ACCOUNT" ToRole="STUDENT" />
+        </EntityType>
+        <EntityType Name="AccountRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ACCOUNT" Relationship="Self.R1ACCOUNT_ROLE" FromRole="ACCOUNT_ROLE" ToRole="ACCOUNT" />
+          <NavigationProperty Name="ROLE" Relationship="Self.R2ACCOUNT_ROLE" FromRole="ACCOUNT_ROLE" ToRole="ROLE" />
+        </EntityType>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="QuestionId" Type="Int32" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsRight" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="QUESTION" Relationship="Self.R1ANSWER" FromRole="ANSWER" ToRole="QUESTION" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TestId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ANSWER" Relationship="Self.R1ANSWER" FromRole="QUESTION" ToRole="ANSWER" />
+          <NavigationProperty Name="TEST" Relationship="Self.R1QUESTION" FromRole="QUESTION" ToRole="TEST" />
+        </EntityType>
+        <EntityType Name="Result">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="TestId" Type="Int32" Nullable="false" />
+          <Property Name="ResultTest" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACCOUNT" Relationship="Self.R1RESULT" FromRole="RESULT" ToRole="ACCOUNT" />
+          <NavigationProperty Name="TEST" Relationship="Self.R2RESULT" FromRole="RESULT" ToRole="TEST" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="240" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ACCOUNT_ROLE" Relationship="Self.R2ACCOUNT_ROLE" FromRole="ROLE" ToRole="ACCOUNT_ROLE" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int32" Nullable="false" />
+          <Property Name="StudentGroupId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ACCOUNT" Relationship="Self.R1STUDENT" FromRole="STUDENT" ToRole="ACCOUNT" />
+          <NavigationProperty Name="STUDENT_GROUP" Relationship="Self.R2STUDENT" FromRole="STUDENT" ToRole="STUDENT_GROUP" />
+        </EntityType>
+        <EntityType Name="StudentGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="STUDENT" Relationship="Self.R2STUDENT" FromRole="STUDENT_GROUP" ToRole="STUDENT" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Them" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="QUESTION" Relationship="Self.R1QUESTION" FromRole="TEST" ToRole="QUESTION" />
+          <NavigationProperty Name="RESULT" Relationship="Self.R2RESULT" FromRole="TEST" ToRole="RESULT" />
+        </EntityType>
+        <Association Name="R1ACCOUNT_ROLE">
+          <End Role="ACCOUNT" Type="DBModel.Account" Multiplicity="1" />
+          <End Role="ACCOUNT_ROLE" Type="DBModel.AccountRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ACCOUNT_ROLE">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R1RESULT">
+          <End Role="ACCOUNT" Type="DBModel.Account" Multiplicity="1" />
+          <End Role="RESULT" Type="DBModel.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESULT">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R1STUDENT">
+          <End Role="ACCOUNT" Type="DBModel.Account" Multiplicity="1" />
+          <End Role="STUDENT" Type="DBModel.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACCOUNT">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R2ACCOUNT_ROLE">
+          <End Role="ROLE" Type="DBModel.Role" Multiplicity="1" />
+          <End Role="ACCOUNT_ROLE" Type="DBModel.AccountRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLE">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ACCOUNT_ROLE">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R1ANSWER">
+          <End Role="QUESTION" Type="DBModel.Question" Multiplicity="1" />
+          <End Role="ANSWER" Type="DBModel.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QUESTION">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ANSWER">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R1QUESTION">
+          <End Role="TEST" Type="DBModel.Test" Multiplicity="1" />
+          <End Role="QUESTION" Type="DBModel.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEST">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QUESTION">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R2RESULT">
+          <End Role="TEST" Type="DBModel.Test" Multiplicity="1" />
+          <End Role="RESULT" Type="DBModel.Result" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEST">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RESULT">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="R2STUDENT">
+          <End Role="STUDENT_GROUP" Type="DBModel.StudentGroup" Multiplicity="1" />
+          <End Role="STUDENT" Type="DBModel.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STUDENT_GROUP">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="STUDENT">
+              <PropertyRef Name="StudentGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ServerDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Account" EntityType="DBModel.Account" />
+          <EntitySet Name="AccountRole" EntityType="DBModel.AccountRole" />
+          <EntitySet Name="Answer" EntityType="DBModel.Answer" />
+          <EntitySet Name="Question" EntityType="DBModel.Question" />
+          <EntitySet Name="Result" EntityType="DBModel.Result" />
+          <EntitySet Name="Role" EntityType="DBModel.Role" />
+          <EntitySet Name="Student" EntityType="DBModel.Student" />
+          <EntitySet Name="StudentGroup" EntityType="DBModel.StudentGroup" />
+          <EntitySet Name="Test" EntityType="DBModel.Test" />
+          <AssociationSet Name="R1ACCOUNT_ROLE" Association="Self.R1ACCOUNT_ROLE">
+            <End Role="ACCOUNT" EntitySet="Account" />
+            <End Role="ACCOUNT_ROLE" EntitySet="AccountRole" />
+          </AssociationSet>
+          <AssociationSet Name="R1RESULT" Association="Self.R1RESULT">
+            <End Role="ACCOUNT" EntitySet="Account" />
+            <End Role="RESULT" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="R1STUDENT" Association="Self.R1STUDENT">
+            <End Role="ACCOUNT" EntitySet="Account" />
+            <End Role="STUDENT" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="R2ACCOUNT_ROLE" Association="Self.R2ACCOUNT_ROLE">
+            <End Role="ROLE" EntitySet="Role" />
+            <End Role="ACCOUNT_ROLE" EntitySet="AccountRole" />
+          </AssociationSet>
+          <AssociationSet Name="R1ANSWER" Association="Self.R1ANSWER">
+            <End Role="QUESTION" EntitySet="Question" />
+            <End Role="ANSWER" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="R1QUESTION" Association="Self.R1QUESTION">
+            <End Role="TEST" EntitySet="Test" />
+            <End Role="QUESTION" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="R2RESULT" Association="Self.R2RESULT">
+            <End Role="TEST" EntitySet="Test" />
+            <End Role="RESULT" EntitySet="Result" />
+          </AssociationSet>
+          <AssociationSet Name="R2STUDENT" Association="Self.R2STUDENT">
+            <End Role="STUDENT_GROUP" EntitySet="StudentGroup" />
+            <End Role="STUDENT" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="ServerDB">
+          <EntitySetMapping Name="Account">
+            <EntityTypeMapping TypeName="DBModel.Account">
+              <MappingFragment StoreEntitySet="ACCOUNT">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="LOGIN" />
+                <ScalarProperty Name="Password" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccountRole">
+            <EntityTypeMapping TypeName="DBModel.AccountRole">
+              <MappingFragment StoreEntitySet="ACCOUNT_ROLE">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="AccountId" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="RoleId" ColumnName="ROLE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Answer">
+            <EntityTypeMapping TypeName="DBModel.Answer">
+              <MappingFragment StoreEntitySet="ANSWER">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="QuestionId" ColumnName="QUESTION_ID" />
+                <ScalarProperty Name="Content" ColumnName="CONTENT" />
+                <ScalarProperty Name="IsRight" ColumnName="IS_RIGHT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Question">
+            <EntityTypeMapping TypeName="DBModel.Question">
+              <MappingFragment StoreEntitySet="QUESTION">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="TITLE" />
+                <ScalarProperty Name="Content" ColumnName="CONTENT" />
+                <ScalarProperty Name="TestId" ColumnName="TEST_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Result">
+            <EntityTypeMapping TypeName="DBModel.Result">
+              <MappingFragment StoreEntitySet="RESULT">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="AccountId" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="TestId" ColumnName="TEST_ID" />
+                <ScalarProperty Name="ResultTest" ColumnName="RESULT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="DBModel.Role">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="DBModel.Student">
+              <MappingFragment StoreEntitySet="STUDENT">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="AccountId" ColumnName="ACCOUNT_ID" />
+                <ScalarProperty Name="StudentGroupId" ColumnName="STUDENT_GROUP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentGroup">
+            <EntityTypeMapping TypeName="DBModel.StudentGroup">
+              <MappingFragment StoreEntitySet="STUDENT_GROUP">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="NAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Test">
+            <EntityTypeMapping TypeName="DBModel.Test">
+              <MappingFragment StoreEntitySet="TEST">
+                <ScalarProperty Name="Id" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="NAME" />
+                <ScalarProperty Name="Them" ColumnName="THEME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

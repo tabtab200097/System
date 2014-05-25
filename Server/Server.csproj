@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Server</RootNamespace>
     <AssemblyName>Server</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -48,10 +48,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net35\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
@@ -66,10 +71,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
-    <Compile Include="DB\MainModel.Designer.cs">
+    <Compile Include="DB\Account.cs">
+      <DependentUpon>MainDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\AccountRole.cs">
+      <DependentUpon>MainDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Answer.cs">
+      <DependentUpon>MainDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MainDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MainModel.edmx</DependentUpon>
+      <DependentUpon>MainDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MainDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\MainDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Question.cs">
+      <DependentUpon>MainDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Result.cs">
+      <DependentUpon>MainDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Role.cs">
+      <DependentUpon>MainDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Student.cs">
+      <DependentUpon>MainDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\StudentGroup.cs">
+      <DependentUpon>MainDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DB\Test.cs">
+      <DependentUpon>MainDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -93,12 +135,22 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EntityDeploy Include="DB\MainModel.edmx">
+    <EntityDeploy Include="DB\MainDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MainModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>MainDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DB\MainModel.edmx.diagram">
-      <DependentUpon>MainModel.edmx</DependentUpon>
+    <None Include="DB\MainDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MainDB.edmx</DependentUpon>
+      <LastGenOutput>MainDB.Context.cs</LastGenOutput>
+    </None>
+    <None Include="DB\MainDB.edmx.diagram">
+      <DependentUpon>MainDB.edmx</DependentUpon>
+    </None>
+    <None Include="DB\MainDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MainDB.edmx</DependentUpon>
+      <LastGenOutput>MainDB.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -143,6 +195,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -5,6 +5,8 @@ using System.Text;
 using System.Net.Sockets;
 using JsonModel;
 using Newtonsoft.Json;
+using Server.DB;
+using System.Diagnostics;
 
 namespace Server
 {
@@ -12,9 +14,10 @@ namespace Server
     {
         //private Socket stream;
         //private byte[] bytes;
-
+        ServerDB DB;
         public Client(Socket handler)
         {
+            DB = new ServerDB();
             Socket stream = handler;
             byte[] bytes = new byte[4096];
             byte[] msg;
@@ -83,11 +86,21 @@ namespace Server
 
             int response = 0;
             Console.WriteLine("Попытка авторизироваться \nlogin: {0}\nPass: {1}", data.login, data.password);
-            if (data.login == "admin" && data.password == "admin")
+           
+            /*
+             * 
+             * работа с бд
+             * */
+            Account user = DB.Account.Where(x => x.Login == data.login && x.Password == data.password).FirstOrDefault();
+
+            if (user!=null)
             {
-                response = 123456;
+                
+                response = user.Id;
             }
-            Console.WriteLine("\nвернули токен {0}\n", response);
+
+
+            Debug.WriteLine("\nвернули токен {0}\n", response);
 
             byte[] msg = BitConverter.GetBytes(response);
             return msg;
