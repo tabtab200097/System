@@ -41,7 +41,7 @@
             this.buttonOK.Location = new System.Drawing.Point(18, 68);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 0;
+            this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "Войти";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
@@ -51,7 +51,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(106, 68);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 1;
+            this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Отмена";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -68,7 +68,7 @@
             this.textBoxPass.Location = new System.Drawing.Point(106, 35);
             this.textBoxPass.Name = "textBoxPass";
             this.textBoxPass.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPass.TabIndex = 3;
+            this.textBoxPass.TabIndex = 1;
             // 
             // label1
             // 

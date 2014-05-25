@@ -13,8 +13,8 @@ namespace Editor
     {
         public TCP serverconnect = new TCP("localhost", 30000);
 
-        public string login;
-        public string password;
+        public string login = "";
+        public string password = "";
         private int token;
 
         public Form1()
@@ -78,6 +78,7 @@ namespace Editor
             if(token<100000)
             {
                 MessageBox.Show("Пожалуйста, войдите в систему");
+                return;
             }
 
 
@@ -89,6 +90,7 @@ namespace Editor
             if (token < 100000)
             {
                 MessageBox.Show("Пожалуйста, войдите в систему");
+                return;
             }
 
 
