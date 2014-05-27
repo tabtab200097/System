@@ -16,7 +16,7 @@ namespace Server.DB
     public partial class ServerDB : DbContext
     {
         public ServerDB()
-            : base("name=ServerDBEntities")
+            : base("name=ServerDB")
         {
         }
     

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="ACCOUNT">
           <Key>
             <PropertyRef Name="ID" />
@@ -12,6 +12,9 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="LOGIN" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="PASSWORD" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FIRST_NAME" Type="varchar" MaxLength="240" Nullable="false" />
+          <Property Name="LAST_NAME" Type="varchar" MaxLength="240" Nullable="false" />
+          <Property Name="SECOND_NAME" Type="varchar" MaxLength="240" Nullable="false" />
         </EntityType>
         <EntityType Name="ACCOUNT_ROLE">
           <Key>
@@ -217,8 +220,7 @@
             <End Role="STUDENT" EntitySet="STUDENT" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -232,6 +234,9 @@
           <NavigationProperty Name="ACCOUNT_ROLE" Relationship="Self.R1ACCOUNT_ROLE" FromRole="ACCOUNT" ToRole="ACCOUNT_ROLE" />
           <NavigationProperty Name="RESULT" Relationship="Self.R1RESULT" FromRole="ACCOUNT" ToRole="RESULT" />
           <NavigationProperty Name="STUDENT" Relationship="Self.R1STUDENT" FromRole="ACCOUNT" ToRole="STUDENT" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="240" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="240" FixedLength="false" Unicode="false" />
+          <Property Name="SecondName" Type="String" Nullable="false" MaxLength="240" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="AccountRole">
           <Key>
@@ -459,6 +464,9 @@
           <EntitySetMapping Name="Account">
             <EntityTypeMapping TypeName="DBModel.Account">
               <MappingFragment StoreEntitySet="ACCOUNT">
+                <ScalarProperty Name="SecondName" ColumnName="SECOND_NAME" />
+                <ScalarProperty Name="LastName" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="FirstName" ColumnName="FIRST_NAME" />
                 <ScalarProperty Name="Id" ColumnName="ID" />
                 <ScalarProperty Name="Login" ColumnName="LOGIN" />
                 <ScalarProperty Name="Password" ColumnName="PASSWORD" />

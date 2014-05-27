@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Client.Test.cs" />
     <Compile Include="DB\Account.cs">
       <DependentUpon>MainDB.tt</DependentUpon>
     </Compile>

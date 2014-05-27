@@ -24,6 +24,9 @@ namespace Server.DB
         public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string SecondName { get; set; }
     
         public virtual ICollection<AccountRole> ACCOUNT_ROLE { get; set; }
         public virtual ICollection<Result> RESULT { get; set; }

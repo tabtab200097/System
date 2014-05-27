@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace Server
 {
-    public class Client
+    public partial class Client
     {
         //private Socket stream;
         //private byte[] bytes;
