@@ -61,6 +61,7 @@ namespace JsonModel
 
     public class JsonUserTest
     {
+        public int id { get; set; }
         public List<JsonUserQuestion> questions { get; set; }
     }
 

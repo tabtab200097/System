@@ -172,6 +172,7 @@
             this.Controls.Add(this.comboBox1);
             this.Name = "FormTest";
             this.Text = "FormTest";
+            this.Load += new System.EventHandler(this.FormTest_Load);
             this.Shown += new System.EventHandler(this.FormTest_Shown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
