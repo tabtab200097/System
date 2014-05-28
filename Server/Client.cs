@@ -38,11 +38,17 @@ namespace Server
             switch (idOperation)
             {
                 case 1:
-                    msg = this.Authorization(bytes, bytesLength);    
+                    msg = this.Authorization(bytes);    
                     //this.operationComand1();
                     break;
+                case 102:
+                    msg = this.SendTestList();
+                    break;
+                case 103:
+                    msg = this.SendTestById(bytes);
+                    break; 
                 default:
-                    msg = this.otherComand(bytes, bytesLength);
+                    msg = this.otherComand(bytes);
                     break;
             }
             stream.Send(msg);
@@ -53,22 +59,16 @@ namespace Server
 
         private int getIdOperation(byte[] bytes)
         {
-            int res = 0;
-            //int bytesRec = this.stream.Receive(this.bytes);
-            res = BitConverter.ToInt32(bytes, 0);
-            //byte[] ms = Encoding.UTF8.GetBytes("ok");
-            //this.stream.Send(ms);
-
+            int res = BitConverter.ToInt32(bytes, 0);
             Console.WriteLine("\nЗапрош прошел:{1}\nКод операции{0}\n", res, DateTime.Now.ToString());
-
             return res;
         }
 
-        private byte[] otherComand(byte[] bytes, int bytesRec)
+        private byte[] otherComand(byte[] bytes)
         {
 
             //int bytesRec = this.stream.Receive(bytes);
-            string data = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            string data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
             Console.Write("\nПолученный текст: " + data + "\n\n");
 
             string reply = data.Length.ToString() + "\n\n\0\0\n\n";
@@ -76,11 +76,11 @@ namespace Server
             return msg;
         }
 
-        private byte[] Authorization(byte[] bytes, int bytesRec)
+        private byte[] Authorization(byte[] bytes)
         {
 
             //int bytesRec = this.stream.Receive(this.bytes);
-            string json = Encoding.UTF8.GetString(bytes, 0, bytesRec);
+            string json = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
             AuthRequest data = new AuthRequest();
             data = JsonConvert.DeserializeObject<AuthRequest>(json);
 
@@ -105,5 +105,6 @@ namespace Server
             byte[] msg = BitConverter.GetBytes(response);
             return msg;
         }
+
     }
 }

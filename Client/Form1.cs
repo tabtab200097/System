@@ -15,6 +15,7 @@ namespace Client
 
         public string login = "";
         public string password = "";
+        public int temp;
         private int token;
 
         public Form1()
@@ -75,19 +76,24 @@ namespace Client
 
         private void buttonTests_Click(object sender, EventArgs e)
         {
-            if(token<100000)
+            if(token==0)
             {
                 MessageBox.Show("Пожалуйста, войдите в систему");
                 return;
             }
-
+            FormSelectTest f = new FormSelectTest();
+            f.Owner = this;
+            f.ShowDialog();
+            FormTest f2 = new FormTest();
+            f2.Owner = this;
+            f2.ShowDialog();
 
 
         }
 
         private void buttonJournal_Click(object sender, EventArgs e)
         {
-            if (token < 100000)
+            if (token==0)
             {
                 MessageBox.Show("Пожалуйста, войдите в систему");
                 return;

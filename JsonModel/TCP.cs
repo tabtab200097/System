@@ -13,7 +13,6 @@ namespace JsonModel
     {
         private string hostname = "localhost";
         private int port = 30000;
-        int sizeBuffer = 4096;
 
         private byte[] SendMessage(int idOperation, byte[] msg)
         {
@@ -26,12 +25,6 @@ namespace JsonModel
             sender.Connect(ipEndPoint);
 
             Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
-            /*TODO:
-             * послать(кодзапроса,длиназапроса)
-             * принять(кодзапроса,диназапроса)
-             * если отличаются-->return
-             * а потом передавать-принимать данные
-            */
 
             byte[] data = BitConverter.GetBytes(idOperation);
             sender.Send(data);
@@ -79,5 +72,25 @@ namespace JsonModel
             string response = System.Text.Encoding.UTF8.GetString(responsedata, 0, responsedata.Length);
             return response;
         }
+
+        public List<JsonTestList> GetTestList()
+        {
+            byte[] responsedata = SendMessage(102, System.Text.Encoding.UTF8.GetBytes("ок"));
+            string json = Encoding.UTF8.GetString(responsedata, 0, responsedata.Length);
+            List<JsonTestList> data = JsonConvert.DeserializeObject<List<JsonTestList>>(json);
+            return data;
+        }
+
+        public JsonTest GetTestById(int id)
+        {
+            byte[] responsedata = SendMessage(103, BitConverter.GetBytes(id));
+            string json = Encoding.UTF8.GetString(responsedata, 0, responsedata.Length);
+            JsonTest data = JsonConvert.DeserializeObject<JsonTest>(json);
+            return data;
+
+
+
+        }
+
     }
 }

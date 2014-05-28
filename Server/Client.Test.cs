@@ -12,24 +12,18 @@ namespace Server
 {
     public partial class  Client
     {
-        //TODO посмотри
-        /// <summary>
-        /// Функция возращает тест с вариантами ответов и вопросами
-        /// написана но н епроверена, бд пуста
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <param name="bytesRec"></param>
-        /// <returns></returns>
-        private byte[] getTest(byte[] bytes, int bytesRec)
+
+        private byte[] SendTestById(byte[] bytes)
         {
-            //int bytesRec = this.stream.Receive(this.bytes);
-            string json = Encoding.UTF8.GetString(bytes, 0, bytesRec);
-            RequestTest data = new RequestTest();
-            data = JsonConvert.DeserializeObject<RequestTest>(json);
+            //string json = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+            //RequestTest data = new RequestTest();
+            //data = JsonConvert.DeserializeObject<RequestTest>(json);
+
+            int temp = BitConverter.ToInt32(bytes, 0);
 
             JsonTest resultTest = null;
             
-            Test test = DB.Test.Where(x => x.Id == data.id).FirstOrDefault();
+            Test test = DB.Test.Where(x => x.Id == temp).FirstOrDefault();
             if (test != null)
             {
                 resultTest = new JsonTest();
@@ -52,6 +46,7 @@ namespace Server
                         answer.content = a.Content;
                         answer.id = a.Id;
                         resultAnswer.Add(answer);
+
                     }
                     qu.answers = resultAnswer;
                     resultQuestion.Add(qu);
@@ -61,9 +56,20 @@ namespace Server
 
             string response = JsonConvert.SerializeObject(resultTest);
 
+            byte[] msg = Encoding.UTF8.GetBytes(response);
+            return msg;
+        }
+
+        private byte[] SendTestList()
+        {
+            var result = DB.Test.Select(x => new { id = x.Id , name = x.Name}).ToList();
+
+            string response = JsonConvert.SerializeObject(result);
+
 
             byte[] msg = Encoding.UTF8.GetBytes(response);
             return msg;
+
         }
     }
 }
