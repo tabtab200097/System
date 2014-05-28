@@ -71,5 +71,34 @@ namespace Server
             return msg;
 
         }
+
+        private byte[] CheckMyAnswersPleeease(byte[] bytes)
+        {
+            string tempjson = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+            JsonUserTest userresult = JsonConvert.DeserializeObject<JsonUserTest>(tempjson);
+
+
+            foreach (JsonUserQuestion t in userresult.questions)
+            {
+                List<JsonUserResult> list = new List<JsonUserResult>();
+                JsonUserResult result = new JsonUserResult();
+                result.questionid = t.questionid;
+                result.
+
+
+                list.Add();
+
+
+
+
+            }
+
+
+            //Test answer = DB.Answer.Where(x => x.Id == userresult.questions).FirstOrDefault();
+
+
+        }
+
+
     }
 }

@@ -63,4 +63,15 @@ namespace JsonModel
     {
         public List<JsonUserQuestion> questions { get; set; }
     }
+
+    public struct JsonUserResult
+    {
+        public int questionid { get; set; }
+        public string title { get; set; }
+        public string questioncontent { get; set; }
+        public string answer { get; set; }
+        public string result { get; set; }
+
+    }
+
 }

@@ -57,7 +57,7 @@ namespace JsonModel
             request.login = login;
             request.password = password;
             string json = JsonConvert.SerializeObject(request, Formatting.Indented);
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(json.ToString());
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(json/*.ToString()*/);
             byte[] response = SendMessage(1, data);
             result = BitConverter.ToInt32(response, 0);
             return result;
@@ -87,8 +87,16 @@ namespace JsonModel
             string json = Encoding.UTF8.GetString(responsedata, 0, responsedata.Length);
             JsonTest data = JsonConvert.DeserializeObject<JsonTest>(json);
             return data;
+        }
 
-
+        public List<JsonUserResult> CheckMyAnswersPleeease(JsonUserTest answers)
+        {
+            string json = JsonConvert.SerializeObject(answers);
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(json);
+            byte[] responsedata = SendMessage(104, data);
+            string json2 = Encoding.UTF8.GetString(responsedata, 0, responsedata.Length);
+            List<JsonUserResult> result = JsonConvert.DeserializeObject<List<JsonUserResult>>(json2);
+            return result;
 
         }
 

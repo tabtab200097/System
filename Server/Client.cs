@@ -46,6 +46,9 @@ namespace Server
                     break;
                 case 103:
                     msg = this.SendTestById(bytes);
+                    break;
+                case 104:
+                    msg = this.CheckMyAnswersPleeease(bytes);
                     break; 
                 default:
                     msg = this.otherComand(bytes);
