@@ -4,6 +4,7 @@ using System.Text;
 
 namespace JsonModel
 {
+
     public class AuthRequest
     {
         public string login { get; set; }
@@ -45,5 +46,21 @@ namespace JsonModel
     {
         public int id { get; set; }
         public string name { get; set; }
+    }
+
+    public class JsonUserAnswer
+    {
+        public int answerid { get; set; }
+    }
+
+    public class JsonUserQuestion
+    {
+        public int questionid { get; set; }
+        public List<JsonUserAnswer> answers { get; set; }
+    }
+
+    public class JsonUserTest
+    {
+        public List<JsonUserQuestion> questions { get; set; }
     }
 }

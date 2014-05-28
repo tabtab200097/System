@@ -109,6 +109,7 @@
             this.buttonTheory.TabIndex = 6;
             this.buttonTheory.Text = "Теория";
             this.buttonTheory.UseVisualStyleBackColor = true;
+            this.buttonTheory.Visible = false;
             this.buttonTheory.Click += new System.EventHandler(this.buttonTheory_Click);
             // 
             // buttonTests
@@ -129,6 +130,7 @@
             this.buttonJournal.TabIndex = 8;
             this.buttonJournal.Text = "Журнал";
             this.buttonJournal.UseVisualStyleBackColor = true;
+            this.buttonJournal.Visible = false;
             this.buttonJournal.Click += new System.EventHandler(this.buttonJournal_Click);
             // 
             // Form1

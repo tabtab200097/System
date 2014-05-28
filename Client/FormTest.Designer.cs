@@ -146,6 +146,7 @@
             this.buttonDone.TabIndex = 5;
             this.buttonDone.Text = "Завершить тест";
             this.buttonDone.UseVisualStyleBackColor = true;
+            this.buttonDone.Click += new System.EventHandler(this.buttonDone_Click);
             // 
             // buttonAnswer
             // 

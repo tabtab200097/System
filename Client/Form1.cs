@@ -17,6 +17,7 @@ namespace Client
         public string password = "";
         public int temp;
         private int token;
+        public JsonUserTest user_answers = new JsonUserTest();
 
         public Form1()
         {

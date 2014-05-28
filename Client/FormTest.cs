@@ -32,6 +32,17 @@ namespace Client
                 comboBox1.Items.Add(data.questions[i].title);
             }
             comboBox1.SelectedIndex = 0;
+
+            for (int i = 0; i < data.questions.Count; i++)
+            {
+                JsonUserQuestion tempquestion = new JsonUserQuestion();
+                tempquestion.questionid = data.questions[i].id;
+                JsonUserAnswer tempanswer = new JsonUserAnswer();
+                tempanswer.answerid = -1;
+                tempquestion.answers.Add(tempanswer);
+                main.user_answers.questions.Add(tempquestion);
+            }
+
             /*
             for (int i = 0; i<data.questions.Count; i++)
             {
@@ -78,16 +89,61 @@ namespace Client
 
 
         }
-        
-        
-        private void buttonNext_Click(object sender, EventArgs e)
-        {
-            if (comboBox1.SelectedIndex < comboBox1.Items.Count) comboBox1.SelectedIndex++;
-        }
 
         private void buttonAnswer_Click(object sender, EventArgs e)
         {
+            Form1 main = this.Owner as Form1;
+            for (int i = 0; i < main.user_answers.questions.Count;i++ )
+            {
+                if (main.user_answers.questions[i].questionid == data.questions[comboBox1.SelectedIndex].id)
+                {
+
+                    main.user_answers.questions[i].answers.Clear();
+
+                    JsonUserQuestion tempquestion = new JsonUserQuestion();
+                    tempquestion.questionid = data.questions[i].id;
+
+                    //тут блять может быть косяк
+                    //проверять что там с индексами при выводе текста ответов
+                    JsonUserAnswer tempanswer = new JsonUserAnswer();
+                    Control cnt in groupBox1.Controls;
+
+                    for (int j = 0; j < data.questions[i].answers.Count; j++)
+                    {
+                        if (groupBox1.(RadioButton)Controls[j].)
+                    }
+
+
+                    main.user_answers.questions[i].answers.Add();
+
+
+                    /*
+                    JsonUserQuestion tempquestion = new JsonUserQuestion();
+                    tempquestion.questionid = data.questions[i].id;
+                    JsonUserAnswer tempanswer = new JsonUserAnswer();
+                    tempanswer.answerid = -1;
+                    tempquestion.answers.Add(tempanswer);
+                    main.user_answers.questions.Add(tempquestion);
+                    */
+
+
+                    break;
+                }
+            }
+
+
+
+                if (comboBox1.SelectedIndex < comboBox1.Items.Count - 1) comboBox1.SelectedIndex++;
+        }
+
+        private void buttonNext_Click(object sender, EventArgs e)
+        {
             if (comboBox1.SelectedIndex < comboBox1.Items.Count-1) comboBox1.SelectedIndex++;
+        }
+
+        private void buttonDone_Click(object sender, EventArgs e)
+        {
+
         }
 
     }
