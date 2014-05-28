@@ -13,7 +13,8 @@ namespace Client
     public partial class FormTest : Form
     {
         private JsonTest data;
-
+        private JsonUserTest result;
+        private int currentQuestion = 0;
         public FormTest()
         {
             InitializeComponent();
@@ -21,11 +22,7 @@ namespace Client
 
         private void FormTest_Shown(object sender, EventArgs e)
         {
-            Form1 main = this.Owner as Form1;
-            //throw new InvalidExpressionException();
-
-            data = main.serverconnect.GetTestById(main.temp);
-
+            
             label1.Text = data.name;
             for (int i = 0; i < data.questions.Count; i++)
             {
@@ -33,7 +30,7 @@ namespace Client
             }
             comboBox1.SelectedIndex = 0;
 
-            for (int i = 0; i < data.questions.Count; i++)
+          /*  for (int i = 0; i < data.questions.Count; i++)
             {
                 JsonUserQuestion tempquestion = new JsonUserQuestion();
                 tempquestion.questionid = data.questions[i].id;
@@ -41,7 +38,7 @@ namespace Client
                 tempanswer.answerid = -1;
                 tempquestion.answers.Add(tempanswer);
                 main.user_answers.questions.Add(tempquestion);
-            }
+            }*/
 
             /*
             for (int i = 0; i<data.questions.Count; i++)
@@ -86,36 +83,50 @@ namespace Client
                 groupBox1.Controls[j].Text = data.questions[i].answers[j].content;
             }
 
-
+            currentQuestion = comboBox1.SelectedIndex;
 
         }
 
         private void buttonAnswer_Click(object sender, EventArgs e)
         {
-            Form1 main = this.Owner as Form1;
+   /*         Form1 main = this.Owner as Form1;
             for (int i = 0; i < main.user_answers.questions.Count;i++ )
             {
                 if (main.user_answers.questions[i].questionid == data.questions[comboBox1.SelectedIndex].id)
                 {
 
                     main.user_answers.questions[i].answers.Clear();
-
+*/
                     JsonUserQuestion tempquestion = new JsonUserQuestion();
-                    tempquestion.questionid = data.questions[i].id;
+                    tempquestion.questionid = data.questions[currentQuestion].id;
+                    tempquestion.answers = new List<JsonUserAnswer>();
 
                     //тут блять может быть косяк
                     //проверять что там с индексами при выводе текста ответов
-                    JsonUserAnswer tempanswer = new JsonUserAnswer();
-                    Control cnt in groupBox1.Controls;
+                    
+                    int j=0;
+                    foreach(RadioButton t   in groupBox1.Controls)
+                    {
+                        if(j >= data.questions[currentQuestion].answers.Count)
+                            break;
 
-                    for (int j = 0; j < data.questions[i].answers.Count; j++)
+                        if (t.Checked)
+                        {
+                            JsonUserAnswer temp = new JsonUserAnswer();
+                            temp.answerid = 1;
+                            tempquestion.answers.Add(temp);
+                        }
+                    }
+                 result.questions[currentQuestion] = tempquestion;
+
+        /*            for (int j = 0; j < data.questions[i].answers.Count; j++)
                     {
                         if (groupBox1.(RadioButton)Controls[j].)
                     }
 
 
                     main.user_answers.questions[i].answers.Add();
-
+*/
 
                     /*
                     JsonUserQuestion tempquestion = new JsonUserQuestion();
@@ -127,9 +138,9 @@ namespace Client
                     */
 
 
-                    break;
+                   /* break;
                 }
-            }
+            }*/
 
 
 
@@ -143,7 +154,25 @@ namespace Client
 
         private void buttonDone_Click(object sender, EventArgs e)
         {
+            Form1 main = this.Owner as Form1;
+            main.user_answers = result;
+            /*
+             * ну или отправить
+             * */
+            Close();
+        }
 
+        private void FormTest_Load(object sender, EventArgs e)
+        {
+            Form1 main = this.Owner as Form1;
+            //throw new InvalidExpressionException();
+
+            data = main.serverconnect.GetTestById(main.temp);
+
+            result = new JsonUserTest() { id = data.id };
+            result.questions = new List<JsonUserQuestion>(data.questions.Count);
+            for (int i = 0; i < data.questions.Count; i++)
+                result.questions.Add(new JsonUserQuestion());
         }
 
     }
