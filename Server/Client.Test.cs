@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace Server
 {
-    public partial class  Client
+    public partial class Client
     {
 
         private byte[] SendTestById(byte[] bytes)
@@ -22,7 +22,7 @@ namespace Server
             int temp = BitConverter.ToInt32(bytes, 0);
 
             JsonTest resultTest = null;
-            
+
             Test test = DB.Test.Where(x => x.Id == temp).FirstOrDefault();
             if (test != null)
             {
@@ -31,8 +31,8 @@ namespace Server
                 resultTest.name = test.Name;
                 resultTest.id = test.Id;
                 var questions = test.QUESTION.ToList();
-                List<JsonQuestion> resultQuestion = new List<JsonQuestion>(); 
-                foreach( Question t  in questions)
+                List<JsonQuestion> resultQuestion = new List<JsonQuestion>();
+                foreach (Question t in questions)
                 {
                     JsonQuestion qu = new JsonQuestion();
                     qu.id = t.Id;
@@ -62,7 +62,7 @@ namespace Server
 
         private byte[] SendTestList()
         {
-            var result = DB.Test.Select(x => new { id = x.Id , name = x.Name}).ToList();
+            var result = DB.Test.Select(x => new { id = x.Id, name = x.Name }).ToList();
 
             string response = JsonConvert.SerializeObject(result);
 
@@ -77,26 +77,35 @@ namespace Server
             string tempjson = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
             JsonUserTest userresult = JsonConvert.DeserializeObject<JsonUserTest>(tempjson);
 
-
+            List<JsonUserResult> list = new List<JsonUserResult>();
             foreach (JsonUserQuestion t in userresult.questions)
             {
-                List<JsonUserResult> list = new List<JsonUserResult>();
                 JsonUserResult result = new JsonUserResult();
-                result.questionid = t.questionid;
-                result.
+                //result.questionid = t.questionid;
+                Question question = DB.Question.Where(x => x.Id == t.questionid).FirstOrDefault();
+                result.questionid = question.Id;
+                result.title = question.Title;
+                result.questioncontent = question.Content;
+                int procent_of_result = 0;
 
 
-                list.Add();
+                foreach (JsonUserAnswer t2 in t.answers)
+                {
+                    Answer answer = DB.Answer.Where(x => x.Id == t2.answerid).FirstOrDefault();
+                    if (answer != null)
+                        if (answer.IsRight==1)
+                            procent_of_result++;
+                    JsonUserResultAnswer temp_answer = new JsonUserResultAnswer();
+                    temp_answer.answer=answer.Content;
+                    result.answers.Add(temp_answer);
+                }
+                result.result = procent_of_result.ToString();
 
-
-
-
+                list.Add(result);
             }
-
-
-            //Test answer = DB.Answer.Where(x => x.Id == userresult.questions).FirstOrDefault();
-
-
+            string response = JsonConvert.SerializeObject(list);
+            byte[] msg = Encoding.UTF8.GetBytes(response);
+            return msg;
         }
 
 
